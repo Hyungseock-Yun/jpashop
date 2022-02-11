@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     // p6spy (로깅용 라이브러리)
     implementation 'com.github.gavlyukovskiy:datasource-decorator-spring-boot-autoconfigure:1.8.0'
