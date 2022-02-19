@@ -84,4 +84,27 @@ public class OrderRepository {
 
     return query.getResultList();
   }
+
+  public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+    return em.createQuery(
+      "select o from Order o" +
+              " join fetch o.member m" +
+              " join fetch o.delivery d", Order.class
+          )
+          .setFirstResult(offset)
+          .setMaxResults(limit)
+          .getResultList();
+  }
+
+  // fetch 조인으로 SQL 1번만 실행됨. 일단 데이터 전부 가져온 후, JPA가 중복을 걸러 줌. 그러나 페이징이 불가능하다.
+  // 메모리에 퍼올린다음 페이징 처리를 해버린다. (데이터 100만개면 100만개를 메모리에 올림 ㄷㄷ)
+  public List<Order> findAllWithItem() {
+    return em.createQuery(
+      "select distinct o from Order o" +
+        " join fetch o.member m" +
+        " join fetch o.delivery d" +
+        " join fetch o.orderItems oi" +
+        " join fetch oi.item i", Order.class)
+      .getResultList();
+  }
 }
